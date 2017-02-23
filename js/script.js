@@ -36,35 +36,11 @@ function ajax(tipo,dados){//requisição ajax
 	})
 }
 
-
 function idmodaldel(btn){
 	$("#confirmaapagar").data('item', btn);
 	var id =$("#confirmaapagar").data('item');
 
 }
-// function salvardadosdatabela(bot){
-
-//  			var id = $(bot).parents('tr').data("id");
-// 			var NOME= $(bot).parents('tr').data("nome");
-// 			var VALOR = $(bot).parents('tr').data("valor");
-//  			var STATUS = $(bot).parents('tr').data("status");
-//  			var ESTOQUE = $(bot).parents('tr').data("estoque");
-//  			preencher(id,NOME,VALOR,STATUS,ESTOQUE);
-// }
-// function preencher(id,NOME,VALOR,STATUS,ESTOQUE){
-
-//   			document.getElementById('nome').value = NOME;
-//   			document.getElementById('valor').value = VALOR;
-//   			document.getElementById('status').value = STATUS;
-//   			document.getElementById('estoque').value = ESTOQUE;
-// }
-// function idmodaledit(btn){
-// 	console.log(btn)
-// 	$("#confirmaapagar").data('item', btn);
-// 	var id =$("#confirmaapagar").data('item');
-
-// }
-//PAREI TENTANDO LEMBRAR COMO ENVIAR DADOS PARA AJAX
 
 function apagar(btn){ 
 	var id = $(btn).data("item");
@@ -91,6 +67,15 @@ function salvarnovosdados(){
 	var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
 	ajax("POST",dados);
 
+}
+function coletardadostabela(btn){
+	
+	var id = $(btn).parents('tr').data("id");
+	var NOME= $(btn).parents('tr').data("nome");
+	var VALOR = $(btn).parents('tr').data("valor");
+ 	var STATUS = $(btn).parents('tr').data("status");
+ 	var ESTOQUE = $(btn).parents('tr').data("estoque");
+ 	console.log(NOME);
 }
 
 function leituraDados(estado){
@@ -137,7 +122,6 @@ function leituraDados(estado){
 	});
 }
 
-
 function actions(){
 	$('#A').click(function(){
 		ativos();
@@ -156,25 +140,12 @@ function actions(){
 		mudamodaladi();
 		salvarnovosdados();
 	});
-	// $('#tabela').on("click", ".editar", function(){
- //  		var linha = $(this).parent().parent();
- //  		console.log(linha)
- //  		salvardadosdatabela(linha)
- //  	});
-	// $('#modal').click(function(){
-	// 	salvarnovosdados();
-	// });
 
 	$('#tabela').on("click", ".editar", function(){
+		coletardadostabela(this);
 		mudamodaledi();
+
 	});
-
-
-	// $('#tabela').on("click", ".editar", function(){
-	// 	preencher(this);
-	// });
-
-
 }
 
 
