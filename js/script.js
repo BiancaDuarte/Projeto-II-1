@@ -36,6 +36,7 @@ function ajax(tipo,dados){//requisição ajax
 	})
 }
 
+
 function idmodaldel(btn){
 	$("#confirmaapagar").data('item', btn);
 	var id =$("#confirmaapagar").data('item');
@@ -69,7 +70,16 @@ function apagar(btn){
 	var id = $(btn).data("item");
 	ajaxapagar("DELETE", id);	
 }
-
+function mudamodaladi(){
+	$( ".titulo" ).html( "Adicionar produto" );
+	$("#adicionar").show();
+	$("#editar").hide();
+}
+function mudamodaledi(){
+	$( ".titulo" ).html( "Editar produto" );
+	$("#editar").show();
+	$("#adicionar").hide();
+}
 function salvarnovosdados(){
 
 	// alert('NOME');
@@ -143,6 +153,7 @@ function actions(){
 		apagar(this);
 	});
 	$('#adicionar').click(function(){
+		mudamodaladi();
 		salvarnovosdados();
 	});
 	// $('#tabela').on("click", ".editar", function(){
@@ -154,10 +165,9 @@ function actions(){
 	// 	salvarnovosdados();
 	// });
 
-	// $('#tabela').on("click", ".editar", function(){
-	// 	var btn = $(this).parents('tr').data('id');
-	// 	idmodaledi(btn);
-	// });
+	$('#tabela').on("click", ".editar", function(){
+		mudamodaledi();
+	});
 
 
 	// $('#tabela').on("click", ".editar", function(){

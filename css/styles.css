@@ -9,7 +9,9 @@ header {
 	margin:0 auto;
 
 }
-
+ #editar{
+	display: none;
+}
 
 .botao_procura{
 	float: right;
