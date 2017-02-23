@@ -35,7 +35,7 @@ img{
 th{
 	padding: 2%;
 }
-.'informe{
+#informe{
 	background-color: #b3d9ff;
 
 }
@@ -45,7 +45,8 @@ th{
 a:link, a:visited, a:active {
 	text-decoration: none;
 	}
-a:hover {text-decoration: underline;  
+a:hover {
+	text-decoration: underline;  
 	color:#000; 
 	font-size:150%; 
 	}

@@ -26,6 +26,7 @@ function ajax(tipo, url, dados){//requisição ajax
  
         }
 	})
+	tabelatoda();
 }
 
 function idmodaledit(bot){
