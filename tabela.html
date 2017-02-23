@@ -6,14 +6,14 @@
 		<meta charset="UTF-8"> <!-- comando para aceitar acentos -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Suelem Kleinkauf</title>
-		<link rel="stylesheet" href="css/styles.css">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="css/styles.css">
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js" ></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>
 
-	</head>
+	</head> 
 
 	<body>
 		
@@ -22,9 +22,9 @@
 				<div class="container-fluid">
 					<div class="navbar-header"></div>
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Pagina Inicial</a></li>
-						<li><a href="#" id="ativos">Produtos Ativos</a></li>
-						<li><a href="#" id="inativos">Produtos Inativos</a></li>
+						
+						<li><a href="#" value="A" id="A">Produtos Ativos</a></li>
+						<li><a href="#" value="I" id="I">Produtos Inativos</a></li>
 					</ul>
 					<form class="navbar-form navbar-right">
 						<div class="form-group">
@@ -44,7 +44,7 @@
 			</div>
 		</div>
 		<div class="container">         
-			<table class="table table-responsive table-hover">
+			<table class="table table-responsive table-hover table-bordered">
 				<thead>
 					<tr id="informe">
 						<th>Código</th>
@@ -61,8 +61,9 @@
 				</tbody>
 			</table>
 			<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+		<!-- 	modal de adicionar mais produtos e editar  -->
 			<div  class="modal fade bd-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg" onload="preencher()">
+				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title">Adicionar produto</h4>
@@ -74,13 +75,13 @@
 										<div class="form-group">
 											<label class="col-md-4 control-label" for="nome">Nome do Produto:</label>
 											<div class="col-md-4">
-												<input id="nome"  type="text" placeholder="nome" onkeypress="return SomenteLetras(event)" class="form-control input-md" nome="nome">
+												<input id="nome"  type="text" placeholder="nome" id="nome"  class="form-control input-md" nome="nome">
 											</div>
 										</div>
 										<div class="form-group">
 							 				<label class="col-md-4 control-label" for="valor">Valor Unitário:</label>  
 											<div class="col-md-2">
-												<input id="valor" type="text" placeholder="valor" onkeypress='return SomenteNumero(event)' class="form-control input-md" nome="valor">
+												<input id="valor" type="text" placeholder="valor" id="valor"  class="form-control input-md" nome="valor">
 											</div>
 										</div>
 										<div class="form-group">
@@ -95,14 +96,14 @@
 										<div class="form-group">
 											<label class="col-md-4 control-label"  for="Quantidade">Quantidade em estoque:</label>  
 											<div class="col-md-2">
-												<input id="estoque" type="text" placeholder="estoque" onkeypress='return semmeio(event)' class="form-control input-md " nome="estoque" >		
+												<input id="estoque" type="text" placeholder="estoque" id="estoque"  class="form-control input-md " nome="estoque" >		
 											</div>
 										</div>
 									</fieldset>
 									<div id="actions" class="row">
 										<div class="col-md-12">
-											<button type="submit" class="btn btn-primary" onclick="editar()">Editar</button>
-											<button type="submit" class="btn btn-primary" onclick="mais()">Salvar</button>
+									<!-- 		<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#edita" data-item=" " >Editar</button>  -->
+											<button type="submit" class="btn btn-primary" id="adicionar">Adicionar</button>
 											<a href="tabela.html" class="btn btn-default">Cancelar</a>
 										</div>
 									</div>
@@ -112,6 +113,25 @@
 					</div>
 				</div>
 			</div>
+			<!-- Modal apagar -->
+			<div class="modal fade" id="modalapagar" role="dialog" >
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">ATENÇÂO</h4>
+						</div>
+						<div class="modal-body">
+							<p>Você tem certeza que deseja deletar esse item?</p>
+						</div>
+						<div class="modal-footer">
+							<a href="tabela.html" type="submit" class="btn btn-primary" id="confirmaapagar" data-item=" " >Apagar</a>
+							<button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Modal de confirmação -->
+			
 		</div>
 	</body>
 </html>
