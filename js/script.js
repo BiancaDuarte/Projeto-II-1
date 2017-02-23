@@ -75,7 +75,14 @@ function coletardadostabela(btn){
 	var VALOR = $(btn).parents('tr').data("valor");
  	var STATUS = $(btn).parents('tr').data("status");
  	var ESTOQUE = $(btn).parents('tr').data("estoque");
- 	console.log(NOME);
+
+ 	preencher(NOME,VALOR,STATUS,ESTOQUE)
+}
+function preencher(nome,valor,status,estoque){
+	$("#nome").val(nome);
+	$("#valor").val(valor);
+	$("#status").val(status);
+	$("#estoque").val(estoque);
 }
 
 function leituraDados(estado){
@@ -88,7 +95,7 @@ function leituraDados(estado){
 			
 				$('#tabela').append('<tr data-id="'+dados[i].id
 				+'"data-nome="'+dados[i].nome
-				+'"data-valor="'+valor
+				+'"data-valor="'+dados[i].valor
 				+'"data-status="'+dados[i].status
 				+'"data-estoque="'+dados[i].estoque
 				+'"><td>'+dados[i].id
@@ -104,7 +111,7 @@ function leituraDados(estado){
 			}else if(estado==0){
 				$('#tabela').append('<tr data-id="'+dados[i].id
 				+'"data-nome="'+dados[i].nome
-				+'"data-valor="'+valor
+				+'"data-valor="'+dados[i].valor
 				+'"data-status="'+dados[i].status
 				+'"data-estoque="'+dados[i].estoque
 				+'"><td>'+dados[i].id
