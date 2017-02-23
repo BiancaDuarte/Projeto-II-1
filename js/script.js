@@ -1,4 +1,4 @@
-var url ='http://192.168.1.171:3000/product/'
+var db ='http://192.168.1.171:3000/product/'
 
 function tableclean(){
 	$("#tabela").html("");
@@ -16,16 +16,8 @@ function tabelatoda(){//realiza a leitura da tabela sem distinção de status
 	var status=0
 	leituraDados(status);
 }
-function ajaxapagar(tipo,id){//requisição ajax 
-	$.ajax({
-		type: tipo,
-		url: url+ id,
-		success: function(){
- 			
-        }
-	})
-}
-function ajax(tipo,dados){//requisição ajax 
+
+function ajax(tipo, url, dados){//requisição ajax 
 	$.ajax({
 		type: tipo,
  		url: url,
@@ -36,38 +28,45 @@ function ajax(tipo,dados){//requisição ajax
 	})
 }
 
+function idmodaledit(bot){
+	$("#editar").data('item', bot);
+}		
 function idmodaldel(btn){
 	$("#confirmaapagar").data('item', btn);
-	var id =$("#confirmaapagar").data('item');
 
 }
-
 function apagar(btn){ 
 	var id = $(btn).data("item");
-	ajaxapagar("DELETE", id);	
+	ajax("DELETE", db+id);	
 }
 function mudamodaladi(){
 	$( ".titulo" ).html( "Adicionar produto" );
 	$("#adicionar").show();
 	$("#editar").hide();
 }
-function mudamodaledi(){
+function mudamodaledit(){
 	$( ".titulo" ).html( "Editar produto" );
 	$("#editar").show();
 	$("#adicionar").hide();
 }
-function salvarnovosdados(){
-
-	// alert('NOME');
+function salvarnovosdados(metodo,btn){
+	
+	var codigo = $(btn).data("item");
 	var NOME =$('#nome').val();
 	var VALOR = $('#valor').val();
 	var STATUS = $('#status').val();
 	var ESTOQUE = $('#estoque').val();
 
-	var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
-	ajax("POST",dados);
-
+	
+	if(metodo=="POST"){
+		var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
+		ajax("POST",db, dados);
+	}else if (metodo=="PUT") {
+		var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
+		ajax("PUT",db+codigo, dados);
+	}
 }
+
 function coletardadostabela(btn){
 	
 	var id = $(btn).parents('tr').data("id");
@@ -75,10 +74,10 @@ function coletardadostabela(btn){
 	var VALOR = $(btn).parents('tr').data("valor");
  	var STATUS = $(btn).parents('tr').data("status");
  	var ESTOQUE = $(btn).parents('tr').data("estoque");
-
  	preencher(NOME,VALOR,STATUS,ESTOQUE)
 }
 function preencher(nome,valor,status,estoque){
+
 	$("#nome").val(nome);
 	$("#valor").val(valor);
 	$("#status").val(status);
@@ -88,7 +87,7 @@ function preencher(nome,valor,status,estoque){
 function leituraDados(estado){
 
 	tableclean();
-	$.get(url, function(dados){
+	$.get(db, function(dados){
 		for(var i=0;i<dados.length;i++){ //Adicionando registros retornados na tabela
 			
 			if(dados[i].status==estado){
@@ -145,13 +144,18 @@ function actions(){
 	});
 	$('#adicionar').click(function(){
 		mudamodaladi();
-		salvarnovosdados();
+		salvarnovosdados("POST");
 	});
 
 	$('#tabela').on("click", ".editar", function(){
+		var bot = $(this).parents('tr').data('id');
 		coletardadostabela(this);
-		mudamodaledi();
+		idmodaledit(bot);
+		mudamodaledit();
 
+	});
+	$('#editar').click(function(){
+		salvarnovosdados("PUT", this);
 	});
 }
 
