@@ -52,13 +52,13 @@ function apagar(btn){
 }
 
 function mudamodaladi(){
-	$( ".titulo" ).html( "Adicionar produto" );
+	$( ".tituloModal" ).html( "Adicionar produto" );
 	$("#adicionar").show();
 	$("#editar").hide();
 }
 
 function mudamodaledit(){
-	$( ".titulo" ).html( "Editar produto" );
+	$( ".tituloModal" ).html( "Editar produto" );
 	$("#editar").show();
 	$("#adicionar").hide();
 }
