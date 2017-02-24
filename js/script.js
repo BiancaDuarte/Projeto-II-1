@@ -20,6 +20,7 @@ function tabelatoda(){//realiza a leitura da tabela sem distinção de status
 }
 
 function ajax(tipo, url, dados){//requisição ajax 
+	console.log(dados+"OII");
 	$.ajax({
 		type: tipo,
  		url: url,
@@ -33,7 +34,7 @@ function ajax(tipo, url, dados){//requisição ajax
 }
 
 function maskmoney(){
-	   $("input#valor").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+	   $("input#valor").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
 }
 
 // $(#modal).modal(hide) para esconder. Ler documentação http://getbootstrap.com/javascript/#modals
@@ -71,7 +72,6 @@ function salvarnovosdados(metodo,btn){
 	var STATUS = $('#status').val();
 	var ESTOQUE = $('#estoque').val();
 
-	
 	if(metodo=="POST"){
 		var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
 		ajax("POST",db, dados);
@@ -104,17 +104,21 @@ function leituraDados(estado){
 	tableclean();
 	$.get(db, function(dados){
 		for(var i=0;i<dados.length;i++){ //Adicionando registros retornados na tabela
+
+			valor= dados[i].valor 
+			// valor=(parseFloat(valor).toFixed(2));
+			// console.log(valor);
 			
 			if(dados[i].status==estado){
 			
 				$('#tabela').append('<tr data-id="'+dados[i].id
 				+'"data-nome="'+dados[i].nome
-				+'"data-valor="'+dados[i].valor
+				+'"data-valor="'+valor
 				+'"data-status="'+dados[i].status
 				+'"data-estoque="'+dados[i].estoque
 				+'"><td>'+dados[i].id
 				+'</td><td>'+dados[i].nome
-				+'</td><td>R$ '+dados[i].valor
+				+'</td><td>R$ '+valor.toString().replace(".", ",")
 				+'</td><td>'+dados[i].status
 				+'</td><td>'+dados[i].estoque
 				+'</td><td>'
@@ -125,12 +129,12 @@ function leituraDados(estado){
 			}else if(estado==0){
 				$('#tabela').append('<tr data-id="'+dados[i].id
 				+'"data-nome="'+dados[i].nome
-				+'"data-valor="'+dados[i].valor
+				+'"data-valor="'+valor
 				+'"data-status="'+dados[i].status
 				+'"data-estoque="'+dados[i].estoque
 				+'"><td>'+dados[i].id
 				+'</td><td>'+dados[i].nome
-				+'</td><td>R$ '+dados[i].valor
+				+'</td><td>R$ '+valor.toString().replace(".", ",")
 				+'</td><td>'+dados[i].status
 				+'</td><td>'+dados[i].estoque
 				+'</td><td>'
@@ -138,7 +142,7 @@ function leituraDados(estado){
 				+'</td><td>'
 				+'<button type="button" data-toggle="modal" data-target="#modal"" class="btn btn-default btn-lg editar" ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+'</td></tr>');
 			}
-			
+		
 		}
 	});
 }
