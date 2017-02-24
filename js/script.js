@@ -1,4 +1,4 @@
-var db ='http://192.168.1.171:3000/product/'
+var db ='http://192.168.1.168:3000/product/'
 
 function tableclean(){
 	$("#tabela").html("");
@@ -8,10 +8,12 @@ function ativos(){//selecionando status como ativo
 	var status='A';
 	leituraDados(status);
 }
+
 function inativos(){//selecionando status como inativo
 	var status='I';
 	leituraDados(status);
 }
+
 function tabelatoda(){//realiza a leitura da tabela sem distinção de status
 	var status=0
 	leituraDados(status);
@@ -23,33 +25,44 @@ function ajax(tipo, url, dados){//requisição ajax
  		url: url,
  		data: dados,
 		success: function(){
- 
+ 		tabelatoda();
         }
 	})
-	tabelatoda();
+	// $('#modalconfirma').modal(options)
+	
 }
 
+function maskmoney(){
+	   $("input#valor").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+}
+
+// $(#modal).modal(hide) para esconder. Ler documentação http://getbootstrap.com/javascript/#modals
 function idmodaledit(bot){
 	$("#editar").data('item', bot);
-}		
+}
+
 function idmodaldel(btn){
 	$("#confirmaapagar").data('item', btn);
 
 }
+
 function apagar(btn){ 
 	var id = $(btn).data("item");
 	ajax("DELETE", db+id);	
 }
+
 function mudamodaladi(){
 	$( ".titulo" ).html( "Adicionar produto" );
 	$("#adicionar").show();
 	$("#editar").hide();
 }
+
 function mudamodaledit(){
 	$( ".titulo" ).html( "Editar produto" );
 	$("#editar").show();
 	$("#adicionar").hide();
 }
+
 function salvarnovosdados(metodo,btn){
 	
 	var codigo = $(btn).data("item");
@@ -77,6 +90,7 @@ function coletardadostabela(btn){
  	var ESTOQUE = $(btn).parents('tr').data("estoque");
  	preencher(NOME,VALOR,STATUS,ESTOQUE)
 }
+
 function preencher(nome,valor,status,estoque){
 
 	$("#nome").val(nome);
@@ -160,10 +174,10 @@ function actions(){
 	});
 }
 
-
 $(document).ready(function(){
 	actions();
 	tabelatoda();
+	maskmoney();
 })
 
 // $(document).ready(function(){
