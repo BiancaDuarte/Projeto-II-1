@@ -20,7 +20,7 @@ function tabelatoda(){//realiza a leitura da tabela sem distinção de status
 }
 
 function ajax(tipo, url, dados){//requisição ajax 
-	console.log(dados+"OII");
+
 	$.ajax({
 		type: tipo,
  		url: url,
@@ -105,9 +105,9 @@ function leituraDados(estado){
 	$.get(db, function(dados){
 		for(var i=0;i<dados.length;i++){ //Adicionando registros retornados na tabela
 
-			valor= dados[i].valor 
-			// valor=(parseFloat(valor).toFixed(2));
-			// console.log(valor);
+			valor= dados[i].valor
+			valor=(parseFloat(valor).toFixed(2));
+			console.log(valor);
 			
 			if(dados[i].status==estado){
 			
@@ -164,6 +164,7 @@ function actions(){
 	$('#adicionar').click(function(){
 		mudamodaladi();
 		salvarnovosdados("POST");
+		$("#adicionar").closemodal()
 	});
 
 	$('#tabela').on("click", ".editar", function(){
@@ -175,6 +176,10 @@ function actions(){
 	});
 	$('#editar').click(function(){
 		salvarnovosdados("PUT", this);
+		$("#editar").closemodal()
+	});
+	$('#cancelar').click(function(){
+		$("#cancelar").closemodal()
 	});
 }
 

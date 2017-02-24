@@ -76,7 +76,7 @@
 										<div class="form-group">
 											<label class="col-md-4 control-label" for="nome">Nome do Produto:</label>
 											<div class="col-md-4">
-												<input id="nome"  type="text" placeholder="nome"  class="form-control input-md" >
+												<input id="nome"  type="text" placeholder="nome" onpaste="return false" ondrop="return false" class="form-control input-md" >
 											</div>
 										</div>
 										<div class="form-group">
@@ -104,9 +104,9 @@
 									<div id="actions" class="row">
 										<div class="col-md-12">
 									<!-- 		<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#edita" data-item=" " >Editar</button>  -->
-											<button type="submit" class="btn btn-primary" id="editar" data-item=" " data-dismiss="modal">Editar</button>
-											<button type="submit" class="btn btn-primary" id="adicionar" data-dismiss="modal">Adicionar</button>
-											<a href="tabela.html" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+											<button type="submit" class="btn btn-primary" id="editar" data-item=" ">Editar</button>
+											<button type="submit" class="btn btn-primary" id="adicionar" >Adicionar</button>
+											<a href="tabela.html" class="btn btn-default" id="Cancelar">Cancelar</a>
 										</div>
 									</div>
 								</form>
