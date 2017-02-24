@@ -1,4 +1,4 @@
-var db ='http://192.168.1.168:3000/product/'
+var db ='http://192.168.1.172:3000/product/'
 
 function tableclean(){
 	$("#tabela").html("");
@@ -29,8 +29,7 @@ function ajax(tipo, url, dados){//requisição ajax
  		tabelatoda();
         }
 	})
-	// $('#modalconfirma').modal(options)
-	
+	// $('#modalconfirma').modal(options)	
 }
 
 function maskmoney(){
@@ -71,15 +70,18 @@ function salvarnovosdados(metodo,btn){
 	var VALOR = $('#valor').val();
 	var STATUS = $('#status').val();
 	var ESTOQUE = $('#estoque').val();
+	if((NOME=="" || VALOR=="" || STATUS=="" || ESTOQUE=="")||(NOME==null || VALOR==null || STATUS==null || ESTOQUE==null)){
+		alert("testando")
 
-	if(metodo=="POST"){
-		var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
-		ajax("POST",db, dados);
-	}else if (metodo=="PUT") {
-		var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
-		ajax("PUT",db+codigo, dados);
-	}
+	}else if(metodo=="POST"){
+			var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
+			ajax("POST",db, dados);
+		}else if (metodo=="PUT") {
+			var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
+			ajax("PUT",db+codigo, dados);
+		}
 }
+
 
 function coletardadostabela(btn){
 	

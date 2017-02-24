@@ -7,12 +7,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Suelem Kleinkauf</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap.css">
 		<link rel="stylesheet" href="css/styles.css">
-		<script type="text/javascript" src="js/jquery-3.1.1.min.js" ></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/script.js"></script>
+		<script  src="js/jquery-3.1.1.min.js" ></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/maskMoney.js" ></script>
+		<script type="text/javascript" src="js/script.js"></script>
 
 	</head> 
 
@@ -76,19 +76,19 @@
 										<div class="form-group">
 											<label class="col-md-4 control-label" for="nome">Nome do Produto:</label>
 											<div class="col-md-4">
-												<input id="nome"  type="text" placeholder="nome" onpaste="return false" ondrop="return false" class="form-control input-md" >
+												<input id="nome"  type="text" placeholder="nome" onpaste="return false" ondrop="return false" required="required" class="form-control input-md" >
 											</div>
 										</div>
 										<div class="form-group">
 							 				<label class="col-md-4 control-label" for="valor">Valor Unitário:</label>  
 											<div class="col-md-2">
-												<input id="valor" type="text" placeholder="valor" onpaste="return false" ondrop="return false" id="valor"  class="form-control input-md">
+												<input id="valor" type="text" placeholder="valor" onpaste="return false" ondrop="return false"  required="required" id="valor"  class="form-control input-md">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-md-4 control-label" for="buttondropdown">Status do produto</label>
 											<div class="col-md-4">
-												<select class="form-control" id="status">
+												<select class="form-control" required="required" id="status">
 													<option value="A">Ativo</option>
 													<option value="I">Inativo</option>
 												</select>
@@ -97,13 +97,12 @@
 										<div class="form-group">
 											<label class="col-md-4 control-label" for="Quantidade">Quantidade em estoque:</label>  
 											<div class="col-md-2">
-												<input id="estoque" type="text" placeholder="estoque" onpaste="return false" ondrop="return false" id="estoque"  class="form-control input-md " >		
+												<input id="estoque" type="text" placeholder="estoque" onpaste="return false" ondrop="return false" required="required" id="estoque"  class="form-control input-md " >		
 											</div>
 										</div>
 									</fieldset>
 									<div id="actions" class="row">
 										<div class="col-md-12">
-									<!-- 		<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#edita" data-item=" " >Editar</button>  -->
 											<button type="submit" class="btn btn-primary" id="editar" data-item=" ">Editar</button>
 											<button type="submit" class="btn btn-primary" id="adicionar" >Adicionar</button>
 											<a href="tabela.html" class="btn btn-default" id="Cancelar">Cancelar</a>
