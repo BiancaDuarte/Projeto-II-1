@@ -19,22 +19,24 @@
 	<body>
 		
 		<header>
-			<nav class="navbar navbar-inverse">
-				
-					<div class="navbar-header"></div>
-					<ul class="nav navbar-nav">
-						<img src="img/logo.png"  >
-						<li><a href="#" value="A" id="A">Produtos Ativos</a></li>
-						<li><a href="#" value="I" id="I">Produtos Inativos</a></li>
-					</ul>
-					<!-- <form class="navbar-form navbar-right">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Procurar">
-						</div>
-						<button type="GO!" class="btn btn-sucess">GO!</button>
-					</form> -->
-				</div>
-			</nav>
+			<div class="row">
+				<nav class="navbar navbar-inverse">
+					
+						<div class="navbar-header"></div>
+						<ul class="nav navbar-nav">
+							<img src="img/logo.png"  >
+							<li><a href="#" value="A" id="A">Produtos Ativos</a></li>
+							<li><a href="#" value="I" id="I">Produtos Inativos</a></li>
+						</ul>
+						<!-- <form class="navbar-form navbar-right">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Procurar">
+							</div>
+							<button type="GO!" class="btn btn-sucess">GO!</button>
+						</form> -->
+					</div>
+				</nav>
+			<div class="row">
 		</header>
 		<div class="container">  
 			<h1>Lista de Produtos: </h1>       
@@ -59,6 +61,11 @@
 			<div  class="modal fade bd-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
+						<div class="col-md-12">
+							<div class="alert alert-danger" id="alerta" role="alert">
+								<strong id="textodoalerta"></strong>
+							</div>
+						</div>
 						<div class="modal-header">
 							<h4 class="tituloModal">Adicionar produto</h4>
 						</div>
@@ -98,7 +105,7 @@
 										<div class="col-md-12">
 											<button type="submit" class="btn btn-primary" id="editar" data-item=" ">Editar</button>
 											<button type="submit" class="btn btn-primary" id="adicionar" >Adicionar</button>
-											<a href="tabela.html" class="btn btn-default" id="Cancelar">Cancelar</a>
+											<button href="tabela.html" class="btn btn-default" id="Cancelar" data-dismiss="modal">Cancelar</button>
 										</div>
 									</div>
 								</form>
@@ -118,7 +125,7 @@
 							<p>Você tem certeza que deseja deletar esse item?</p>
 						</div>
 						<div class="modal-footer">
-							<a href="tabela.html" type="submit" class="btn btn-primary" id="confirmaapagar" data-item=" " data-dismiss="modal" >Apagar</a>
+							<button href="tabela.html" type="submit" class="btn btn-primary" id="confirmaapagar" data-item=" " data-dismiss="modal" >Apagar</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
 						</div>
 					</div>

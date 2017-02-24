@@ -13,14 +13,16 @@ html {
 .botao_procura{
 	float: right;
 }
-
+.alert {
+	margin-top: 20px;
+	display: none;
+}
 img{
 	max-width: 150px;
     max-height:80px;
     float:left;
     margin-left: 50px;
 }
-
 
 #informe{
 	background-color: #b3d9ff;
@@ -29,6 +31,7 @@ img{
 .table{
 	box-shadow: 10px 10px 5px grey;
 }
+
 a:link, a:visited, a:active {
 	font-family: 'Signika Negative', sans-serif;
 	text-decoration: none;
@@ -36,13 +39,12 @@ a:link, a:visited, a:active {
 	margin-left: 20px;
 	font-size: 150%;
 	}
+
 a:hover {
 	text-decoration: underline;  
 	color:#000; 
 	font-size:200%; 
 	}
-
-
 
 div.header {
 	border-style: ridge;

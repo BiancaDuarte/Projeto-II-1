@@ -52,17 +52,26 @@ function apagar(btn){
 }
 
 function mudamodaladi(){
-	$( ".tituloModal" ).html( "Adicionar produto" );
+	$( ".titulo" ).html( "Adicionar produto" );
 	$("#adicionar").show();
 	$("#editar").hide();
 }
 
 function mudamodaledit(){
-	$( ".tituloModal" ).html( "Editar produto" );
+	$( ".titulo" ).html( "Editar produto" );
 	$("#editar").show();
 	$("#adicionar").hide();
 }
-
+function alerta(){
+	$("#alerta").show(1000);
+}
+function limpaefechamodalmodal(){
+	$('#modal').modal('hide')
+	$("#nome").val(" ");
+	$("#valor").val(" ");
+	$("#status").val(" ");
+	$("#estoque").val(" ");
+}
 function salvarnovosdados(metodo,btn){
 	
 	var codigo = $(btn).data("item");
@@ -73,12 +82,15 @@ function salvarnovosdados(metodo,btn){
 	if((NOME=="" || VALOR=="" || STATUS=="" || ESTOQUE=="")||(NOME==null || VALOR==null || STATUS==null || ESTOQUE==null)){
 		alert("testando")
 
+
 	}else if(metodo=="POST"){
 			var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
 			ajax("POST",db, dados);
+			limpaefechamodalmodal()
 		}else if (metodo=="PUT") {
 			var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
 			ajax("PUT",db+codigo, dados);
+			limpaefechamodalmodal()
 		}
 }
 
@@ -166,7 +178,7 @@ function actions(){
 	$('#adicionar').click(function(){
 		mudamodaladi();
 		salvarnovosdados("POST");
-		$("#adicionar").closemodal()
+		
 	});
 
 	$('#tabela').on("click", ".editar", function(){
@@ -178,10 +190,10 @@ function actions(){
 	});
 	$('#editar').click(function(){
 		salvarnovosdados("PUT", this);
-		$("#editar").closemodal()
+		
 	});
 	$('#cancelar').click(function(){
-		$("#cancelar").closemodal()
+		
 	});
 }
 
