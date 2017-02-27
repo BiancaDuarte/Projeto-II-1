@@ -48,11 +48,13 @@ img{
 #titulo{
 	color: #00264d;
 }
+
 #mais{
 	background-color: #b3d9ff;
 	margin-bottom: 1%;
 	margin-top: 1%;
 }
+
 #cancelar{
 	background-color: white;
 	border-color: black;
