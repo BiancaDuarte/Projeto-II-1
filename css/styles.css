@@ -10,7 +10,7 @@ html {
 	display: none;
 }
 
-#inativos, #ativos{
+#inativos, #ativos, img{
 	cursor: pointer;
 }
 

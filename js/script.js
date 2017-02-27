@@ -1,5 +1,5 @@
 var db ='http:192.168.1.172:3000/product/'
-var aux =0;
+
 
 function tableclean(){ //função que limpa a tabela
 	$("#tabela").html(""); 
