@@ -5,14 +5,13 @@ html {
 	padding: 0;
 	font-family: 'Signika Negative', sans-serif;
 }
-
- #editar{
+#aviso{
 	display: none;
 }
-
-.botao_procura{
-	float: right;
+#inativos, #ativos{
+	cursor: pointer;
 }
+
 .alert {
 	margin-top: 20px;
 	display: none;
@@ -31,13 +30,23 @@ img{
 .table{
 	box-shadow: 10px 10px 5px grey;
 }
+.navbar{
+	background-color: #00264d;
+	border: #00264d;
+}
+.nav{
+	margin-left: 6%;
+}
+#titulo{
+	color: #00264d;
+}
 
 a:link, a:visited, a:active {
 	font-family: 'Signika Negative', sans-serif;
 	text-decoration: none;
 	margin-top: 20px;
-	margin-left: 20px;
 	font-size: 150%;
+	color: black;
 	}
 
 a:hover {
@@ -52,6 +61,9 @@ div.header {
     color: black;
     padding: 10px;
     text-align: center; 
+}
+p{
+	float;
 }
 
 h2, p, h1 {

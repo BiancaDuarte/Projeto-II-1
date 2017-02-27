@@ -1,4 +1,5 @@
-var db ='http://192.168.1.172:3000/product/'
+var db ='http:localhost:3000/product/'
+var aux =0;
 
 function tableclean(){
 	$("#tabela").html("");
@@ -19,21 +20,52 @@ function tabelatoda(){//realiza a leitura da tabela sem distinção de status
 	leituraDados(status);
 }
 
-function ajax(tipo, url, dados){//requisição ajax 
+function limparCamposForm(){
+	$('#alerta').fadeOut('fast');
+    $('#nome').val('');
+    $('#valor').val('');
+    $('#status').val('A');
+    $('#estoque').val('');
+}
+function mudartitulo(estado) {//Função que muda o título da página
+	if(estado=="A"){
+		$('#titulo').html("Lista de Itens Ativos em Estoque:");
+	}else if(estado=="I"){
+		$('#titulo').html("Lista de Itens Inativos em Estoque:");
+	
+	}else{
+		$('#titulo').html("Lista de Produtos em Estoque:");
+	}
+}
+function ajax(tipo, url, msg, dados){//requisição ajax 
 
 	$.ajax({
 		type: tipo,
  		url: url,
  		data: dados,
-		success: function(){
- 		tabelatoda();
-        }
+        success: function(){
+			avisos(msg);
+			tabelatoda();
+		},
+		error: function(){
+			msg=("Ops! Algo deu errado, tente novamente!");
+			avisos(msg);
+		}
 	})
 	// $('#modalconfirma').modal(options)	
 }
 
+function avisos(msg){//cria um alert depois das operações
+	$('#aviso').fadeIn('fast', function(){
+	});
+	$( "#textoaviso" ).html("<h1>"+msg+"</h1>");
+	$('#aviso').fadeOut(1500, function(){
+	});
+
+}
+
 function maskmoney(){
-	   $("input#valor").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:"."});
+	   $("input#valor").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:","});
 }
 
 // $(#modal).modal(hide) para esconder. Ler documentação http://getbootstrap.com/javascript/#modals
@@ -48,50 +80,104 @@ function idmodaldel(btn){
 
 function apagar(btn){ 
 	var id = $(btn).data("item");
-	ajax("DELETE", db+id);	
+	msg=("Produto excluido com sucesso!");
+	ajax("DELETE", db+id,msg);	
 }
 
-function mudamodaladi(){
-	$( ".titulo" ).html( "Adicionar produto" );
+function mudamodaladit(){
+	$( "#modaltitulo" ).html( "Adicionar produto" );
 	$("#adicionar").show();
 	$("#editar").hide();
 }
 
 function mudamodaledit(){
-	$( ".titulo" ).html( "Editar produto" );
+	$( "#modaltitulo" ).html( "Editar produto" );
 	$("#editar").show();
 	$("#adicionar").hide();
 }
-function alerta(){
-	$("#alerta").show(1000);
-}
-function limpaefechamodalmodal(){
-	$('#modal').modal('hide')
-	$("#nome").val(" ");
-	$("#valor").val(" ");
-	$("#status").val(" ");
-	$("#estoque").val(" ");
-}
-function salvarnovosdados(metodo,btn){
-	
+
+function salvarnovosdados(metodo, btn){
+
 	var codigo = $(btn).data("item");
+	console.log(codigo)
 	var NOME =$('#nome').val();
 	var VALOR = $('#valor').val();
 	var STATUS = $('#status').val();
 	var ESTOQUE = $('#estoque').val();
-	if((NOME=="" || VALOR=="" || STATUS=="" || ESTOQUE=="")||(NOME==null || VALOR==null || STATUS==null || ESTOQUE==null)){
-		alert("testando")
 
 
-	}else if(metodo=="POST"){
-			var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
-			ajax("POST",db, dados);
-			limpaefechamodalmodal()
-		}else if (metodo=="PUT") {
-			var dados= {nome: NOME, valor: VALOR, status: STATUS , estoque: ESTOQUE};
-			ajax("PUT",db+codigo, dados);
-			limpaefechamodalmodal()
+	if(metodo=="POST"){
+	
+		var dados= {
+			nome: NOME,
+			valor: VALOR,
+			status: STATUS,
+			estoque: ESTOQUE};
+
+		var msg=("Produto adicionado com sucesso!")
+		ajax("POST",db,msg,dados);
+		limparCamposForm()
+		$('#modal').modal('hide');
+		
+	}else if (metodo=="PUT") {
+
+		var dados= {
+			nome: NOME,
+			valor: VALOR, 
+			status: STATUS , 
+			estoque: ESTOQUE};
+
+		var msg=("Produto editado com sucesso!")
+		ajax("PUT",db+codigo,msg,dados);
+		limparCamposForm()
+		$('#modal').modal('hide');
+	}
+
+}
+function procuraigual(){
+	var teste
+
+	$.get(db, function(data) {
+		for(var i=0; i<data.length; i++){
+			if($("#nome").val().toLowerCase()==data[i].nome.toLowerCase()) {
+				exibiraviso("2");
+				teste= 0;
+			}
 		}
+	if (teste != 0) {
+		console.log("teste");
+		salvarnovosdados("POST");
+	}
+});
+}	
+
+function confereform(tipo,btn){
+	if(($("#nome").val()=="")||($("#valor").val()=="")||($("#status").val()=="")||($("#estoque").val()=="")){
+		exibiraviso("1");
+	}else{
+		if(tipo=="PUT"){
+			salvarnovosdados(tipo,btn);
+		}else{
+			procuraigual();
+		}
+	}
+}
+
+
+function exibiraviso(aten){
+	alert(aten);
+	if(aten==1){
+	    $('#alerta').fadeIn('fast', function(){
+	        $('#alerta').fadeIn('fast');
+	    });
+	    $( "#textoalerta" ).html( "ATENÇÃO! Todos os campos devem ser preenchidos" );
+	}
+	if(aten==2){
+	    $('#alerta').fadeIn('fast', function(){
+	        $('#alerta').fadeIn('fast');
+	    });
+	    $( "#textoalerta" ).html( "ATENÇÃO! Este produto já consta em nossos registros" );
+	}
 }
 
 
@@ -116,6 +202,8 @@ function preencher(nome,valor,status,estoque){
 function leituraDados(estado){
 
 	tableclean();
+	mudartitulo(estado);
+	var status
 	$.get(db, function(dados){
 		for(var i=0;i<dados.length;i++){ //Adicionando registros retornados na tabela
 
@@ -124,6 +212,11 @@ function leituraDados(estado){
 			console.log(valor);
 			
 			if(dados[i].status==estado){
+				if (dados[i].status=="A"){
+					status='<h4><span class="glyphicon glyphicon-ok-sign "></span>  Ativo</h4>'
+				}else{
+					status='<h4><span class="glyphicon glyphicon-remove-sign"></span>  Inativo</h4>'
+				}
 			
 				$('#tabela').append('<tr data-id="'+dados[i].id
 				+'"data-nome="'+dados[i].nome
@@ -133,7 +226,7 @@ function leituraDados(estado){
 				+'"><td>'+dados[i].id
 				+'</td><td>'+dados[i].nome
 				+'</td><td>R$ '+valor.toString().replace(".", ",")
-				+'</td><td>'+dados[i].status
+				+'</td><td>'+status
 				+'</td><td>'+dados[i].estoque
 				+'</td><td>'
 				+'<button type="button" data-toggle="modal" data-target="#modalapagar" class="btn btn-default btn-lg delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'
@@ -141,6 +234,12 @@ function leituraDados(estado){
 				+'<button type="button" data-toggle="modal" data-target="#modal"" class="btn btn-default btn-lg editar" ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'+'</td></tr>');
 		
 			}else if(estado==0){
+				if (dados[i].status=="A"){
+					status='<h4><span class="glyphicon glyphicon-ok-sign "></span>  Ativo</h4>'
+				}else{
+					status='<h4><span class="glyphicon glyphicon-remove-sign"></span>  Inativo</h4>'
+				}
+			
 				$('#tabela').append('<tr data-id="'+dados[i].id
 				+'"data-nome="'+dados[i].nome
 				+'"data-valor="'+valor
@@ -149,7 +248,7 @@ function leituraDados(estado){
 				+'"><td>'+dados[i].id
 				+'</td><td>'+dados[i].nome
 				+'</td><td>R$ '+valor.toString().replace(".", ",")
-				+'</td><td>'+dados[i].status
+				+'</td><td>'+status
 				+'</td><td>'+dados[i].estoque
 				+'</td><td>'
 				+'<button type="button" data-toggle="modal" data-target="#modalapagar" class="btn btn-default btn-lg delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'
@@ -165,36 +264,55 @@ function actions(){
 	$('#A').click(function(){
 		ativos();
 	});
+
 	$('#I').click(function(){
 		inativos();
 	});
+
 	$('#tabela').on("click", ".delete", function(){
 		var btn = $(this).parents('tr').data('id');
 		idmodaldel(btn);
 	});
+
 	$('#confirmaapagar').click(function(){
 		apagar(this);
 	});
+	$('#mais').click(function(){
+		limparCamposForm();
+		mudamodaladit();
+	});
+
 	$('#adicionar').click(function(){
-		mudamodaladi();
-		salvarnovosdados("POST");
-		
+		confereform("POST",this);
 	});
 
 	$('#tabela').on("click", ".editar", function(){
 		var bot = $(this).parents('tr').data('id');
+		limparCamposForm();
+		mudamodaledit();
 		coletardadostabela(this);
 		idmodaledit(bot);
-		mudamodaledit();
 
 	});
+
 	$('#editar').click(function(){
-		salvarnovosdados("PUT", this);
-		
+		confereform("PUT",this);
 	});
-	$('#cancelar').click(function(){
-		
+
+	$('#estoque').keyup(function () {
+	    if (!this.value.match(/[0-9]/)) {
+	        this.value = this.value.replace(/[^0-9]/g, '');
+	    }
 	});
+	$("#nome").keyup(function(){
+		var regexp = /[^a-zA-Z- çãõáéíóúàèÌòùâêîôûäëïüöÃÕÁÉÍÓÚÀÈÌÒÙÄÜÏÖËÂÊÎÔÛ]/g;
+		if($(this).val().match(regexp)){
+			$(this).val( $(this).val().replace(regexp,'') );
+		}
+	});
+
+
+
 }
 
 $(document).ready(function(){

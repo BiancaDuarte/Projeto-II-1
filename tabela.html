@@ -16,105 +16,65 @@
 
 	</head> 
 
-	<body>
-		
-		<header>
-			<div class="row">
-				<nav class="navbar navbar-inverse">
-					
-						<div class="navbar-header"></div>
-						<ul class="nav navbar-nav">
-							<img src="img/logo.png"  >
-							<li><a href="#" value="A" id="A">Produtos Ativos</a></li>
-							<li><a href="#" value="I" id="I">Produtos Inativos</a></li>
-						</ul>
-						<!-- <form class="navbar-form navbar-right">
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Procurar">
-							</div>
-							<button type="GO!" class="btn btn-sucess">GO!</button>
-						</form> -->
+	<body>	
+<!-- 	modal para adionar e editar produtos -->
+		<div  class="modal fade bd-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="col-md-12">
+						<div class="alert alert-danger" id="alerta" role="alert">
+							<strong id="textoalerta"></strong>
+						</div>
 					</div>
-				</nav>
-			<div class="row">
-		</header>
-		<div class="container">  
-			<h1>Lista de Produtos: </h1>       
-			<table class="table table-responsive table-hover table-bordered">
-				<thead>
-					<tr id="informe">
-						<th>Código</th>
-						<th>Nome</th>
-						<th>Valor</th>
-						<th>status</th>
-						<th>estoque</th> 
-						<th>Eliminar</th>
-						<th>Editar</th>
-					</tr>
-				</thead>
-				<tbody id="tabela">
-				<!-- completada com a requisição -->
-				</tbody>
-			</table>
-			<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-		<!-- 	modal de adicionar mais produtos e editar  -->
-			<div  class="modal fade bd-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="col-md-12">
-							<div class="alert alert-danger" id="alerta" role="alert">
-								<strong id="textodoalerta"></strong>
-							</div>
-						</div>
-						<div class="modal-header">
-							<h4 class="tituloModal">Adicionar produto</h4>
-						</div>
-						<div class="modal-body">
-							<div id="main" class="container-fluid">
-								<form class="form-horizontal">
-									<fieldset>	
+					<div class="modal-header">
+						<h4 id="modaltitulo">Adicionar produto</h4>
+					</div>
+					<div class="modal-body">
+						<div id="main" class="container-fluid">
+							<form class="form-horizontal">
+								<fieldset>	
+									<div class="row">
 										<div class="form-group">
-											<label class="col-md-4 control-label" for="nome">Nome do Produto:</label>
-											<div class="col-md-4">
-												<input id="nome"  type="text" placeholder="nome" onpaste="return false" ondrop="return false" required="required" class="form-control input-md" >
+											<div class="col-md-12">	
+												<label for="Nome">Nome do Produto:</label>
+												<input type="text" class="form-control" id="nome" placeholder="Nome" onpaste="return false" ondrop="return false">
 											</div>
 										</div>
-										<div class="form-group">
-							 				<label class="col-md-4 control-label" for="valor">Valor Unitário:</label>  
-											<div class="col-md-2">
-												<input id="valor" type="text" placeholder="valor" onpaste="return false" ondrop="return false"  required="required" id="valor"  class="form-control input-md">
+									</div>	
+									<div class="row">
+										<div class="col-md-4">
+											<label for="Valor">Valor:</label>
+											<div class="input-group">
+												<span class="input-group-addon">R$</span>
+												<input type="text" class="form-control" id="valor" placeholder="Valor" onpaste="return false" ondrop="return false">
 											</div>
 										</div>
-										<div class="form-group">
-											<label class="col-md-4 control-label" for="buttondropdown">Status do produto</label>
-											<div class="col-md-4">
-												<select class="form-control" required="required" id="status">
-													<option value="A">Ativo</option>
-													<option value="I">Inativo</option>
-												</select>
+										<div class="col-md-4">
+											<label for="Status">Status do produto:</label>
+											<select class="form-control" id="status">
+												<option value="A">Ativo</option>
+												<option value="I">Inativo</option>
+											</select>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label for="Estoque">Quantidade em estoque:</label>
+												<input type="text" class="form-control" id="estoque" placeholder="Estoque">
 											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-4 control-label" for="Quantidade">Quantidade em estoque:</label>  
-											<div class="col-md-2">
-												<input id="estoque" type="text" placeholder="estoque" onpaste="return false" ondrop="return false" required="required" id="estoque"  class="form-control input-md " >		
-											</div>
-										</div>
-									</fieldset>
-									<div id="actions" class="row">
-										<div class="col-md-12">
-											<button type="submit" class="btn btn-primary" id="editar" data-item=" ">Editar</button>
-											<button type="submit" class="btn btn-primary" id="adicionar" >Adicionar</button>
-											<button href="tabela.html" class="btn btn-default" id="Cancelar" data-dismiss="modal">Cancelar</button>
-										</div>
 									</div>
-								</form>
-							</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-success" id="adicionar">Adicionar</button>
+										<button type="button" class="btn btn-success" id="editar">Editar</button>
+										<button type="button" class="btn btn-warning"  id="cancelar" data-dismiss="modal">Cancelar</button>
+									</div>
+								</fieldset>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- Modal apagar -->
+		</div>
+		<!-- Modal apagar -->
 			<div class="modal fade" id="modalapagar" role="dialog" >
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
@@ -131,8 +91,55 @@
 					</div>
 				</div>
 			</div>
-			<!-- Modal de confirmação -->
+		<header>
+			<nav class="navbar navbar-inverse"><!-- Navbar Início-->
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header ">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
 
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<a href="tabela.html"><img src="img/logo.png"></a>
+						<li><a href="#" value="A" id="A">Produtos Ativos</a></li>
+						<li><a href="#" value="I" id="I">Produtos Inativos</a></li>	
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			</nav>
+		</header>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="alert alert-success" id="aviso" role="alert">
+					<strong id="textoaviso"></strong>
+				</div>
+			</div>
 		</div>
+
+		<div class="container">  
+			<h1 id="titulo"></h1>       
+			<table class="table table-responsive table-hover table-bordered">
+				<thead>
+					<tr id="informe">
+						<th>Código</th>
+						<th>Nome</th>
+						<th>Valor</th>
+						<th>status</th>
+						<th>estoque</th> 
+						<th>Eliminar</th>
+						<th>Editar</th>
+					</tr>
+				</thead>
+				<tbody id="tabela">
+				<!-- completada com a requisição -->
+				</tbody>
+			</table>
+			<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal" id="mais" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar produtos</button>
+		<div>
 	</body>
 </html>
