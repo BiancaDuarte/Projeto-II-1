@@ -308,12 +308,12 @@ function actions(){
 	});
 
 	$('#estoque').keyup(function () { //substitui tudo que não é numero por espaço
-	    if (this.value.match(/[0-9]/)) {
+	    if (this.value.match(/[0123456789]/)) {
 	        this.value = this.value.replace(/[^0-9]/g, '');
 	    }
 	});
 	$('#estoque').blur(function () { //substitui tudo que não é numero por espaço
-	    if (this.value.match(/[0-9]/)) {
+	    if (this.value.match(/[0123456789]/)) {
 	        this.value = this.value.replace(/[^0-9]/g, '');
 	    }
 	});
