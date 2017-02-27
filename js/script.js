@@ -1,8 +1,8 @@
-var db ='http:localhost:3000/product/'
+var db ='http:192.168.1.172:3000/product/'
 var aux =0;
 
-function tableclean(){
-	$("#tabela").html("");
+function tableclean(){ //função que limpa a tabela
+	$("#tabela").html(""); 
 }
 
 function ativos(){//selecionando status como ativo
@@ -20,13 +20,14 @@ function tabelatoda(){//realiza a leitura da tabela sem distinção de status
 	leituraDados(status);
 }
 
-function limparCamposForm(){
+function limparCamposForm(){  //função que limpa o madal
 	$('#alerta').fadeOut('fast');
     $('#nome').val('');
     $('#valor').val('');
     $('#status').val('A');
     $('#estoque').val('');
 }
+
 function mudartitulo(estado) {//Função que muda o título da página
 	if(estado=="A"){
 		$('#titulo').html("Lista de Itens Ativos em Estoque:");
@@ -37,7 +38,8 @@ function mudartitulo(estado) {//Função que muda o título da página
 		$('#titulo').html("Lista de Produtos em Estoque:");
 	}
 }
-function ajax(tipo, url, msg, dados){//requisição ajax 
+
+function ajax(tipo, url, msg, dados){//requisição ajax, conforme dados recebidos
 
 	$.ajax({
 		type: tipo,
@@ -52,10 +54,10 @@ function ajax(tipo, url, msg, dados){//requisição ajax
 			avisos(msg);
 		}
 	})
-	// $('#modalconfirma').modal(options)	
+	
 }
 
-function avisos(msg){//cria um alert depois das operações
+function avisos(msg){ //avisos de intereção com o usuário
 	$('#aviso').fadeIn('fast', function(){
 	});
 	$( "#textoaviso" ).html("<h1>"+msg+"</h1>");
@@ -64,16 +66,16 @@ function avisos(msg){//cria um alert depois das operações
 
 }
 
-function maskmoney(){
+function maskmoney(){//máscara para campo de valor
 	   $("input#valor").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:","});
 }
 
-// $(#modal).modal(hide) para esconder. Ler documentação http://getbootstrap.com/javascript/#modals
-function idmodaledit(bot){
+
+function idmodaledit(bot){//coloca o id do produto como data-item do modal editar
 	$("#editar").data('item', bot);
 }
 
-function idmodaldel(btn){
+function idmodaldel(btn){//coloca o id do produto como data-item do modal detetar
 	$("#confirmaapagar").data('item', btn);
 
 }
@@ -84,7 +86,7 @@ function apagar(btn){
 	ajax("DELETE", db+id,msg);	
 }
 
-function mudamodaladit(){
+function mudamodaladit(){//funções de mudança de título e botões 
 	$( "#modaltitulo" ).html( "Adicionar produto" );
 	$("#adicionar").show();
 	$("#editar").hide();
@@ -96,10 +98,9 @@ function mudamodaledit(){
 	$("#adicionar").hide();
 }
 
-function salvarnovosdados(metodo, btn){
+function salvarnovosdados(metodo, btn){ //salva novos dados e envia para requisição
 
 	var codigo = $(btn).data("item");
-	console.log(codigo)
 	var NOME =$('#nome').val();
 	var VALOR = $('#valor').val();
 	var STATUS = $('#status').val();
@@ -134,7 +135,8 @@ function salvarnovosdados(metodo, btn){
 	}
 
 }
-function procuraigual(){
+
+function procuraigual(){ //função que procura produto igual
 	var teste
 
 	$.get(db, function(data) {
@@ -145,13 +147,13 @@ function procuraigual(){
 			}
 		}
 	if (teste != 0) {
-		console.log("teste");
 		salvarnovosdados("POST");
 	}
 });
 }	
 
-function confereform(tipo,btn){
+function confereform(tipo,btn){ //função que valida formulário;
+
 	if(($("#nome").val()=="")||($("#valor").val()=="")||($("#status").val()=="")||($("#estoque").val()=="")){
 		exibiraviso("1");
 	}else{
@@ -164,8 +166,8 @@ function confereform(tipo,btn){
 }
 
 
-function exibiraviso(aten){
-	alert(aten);
+function exibiraviso(aten){//alertas para incosistencias 
+
 	if(aten==1){
 	    $('#alerta').fadeIn('fast', function(){
 	        $('#alerta').fadeIn('fast');
@@ -181,7 +183,7 @@ function exibiraviso(aten){
 }
 
 
-function coletardadostabela(btn){
+function coletardadostabela(btn){ //coleta dados digitados pelo usuário
 	
 	var id = $(btn).parents('tr').data("id");
 	var NOME= $(btn).parents('tr').data("nome");
@@ -191,7 +193,7 @@ function coletardadostabela(btn){
  	preencher(NOME,VALOR,STATUS,ESTOQUE)
 }
 
-function preencher(nome,valor,status,estoque){
+function preencher(nome,valor,status,estoque){ //preenche modal na função editar
 
 	$("#nome").val(nome);
 	$("#valor").val(valor);
@@ -299,15 +301,15 @@ function actions(){
 		confereform("PUT",this);
 	});
 
-	$('#estoque').keyup(function () {
+	$('#estoque').keyup(function () { //substitui tudo que não é numero por espaço
 	    if (!this.value.match(/[0-9]/)) {
 	        this.value = this.value.replace(/[^0-9]/g, '');
 	    }
 	});
 	$("#nome").keyup(function(){
-		var regexp = /[^a-zA-Z- çãõáéíóúàèÌòùâêîôûäëïüöÃÕÁÉÍÓÚÀÈÌÒÙÄÜÏÖËÂÊÎÔÛ]/g;
-		if($(this).val().match(regexp)){
-			$(this).val( $(this).val().replace(regexp,'') );
+		var regex = /[^a-zA-Z- çãõáéíóúàèÌòùâêîôûäëïüöÃÕÁÉÍÓÚÀÈÌÒÙÄÜÏÖËÂÊÎÔÛ]/g; 
+		if($(this).val().match(regex)){
+			$(this).val( $(this).val().replace(regex,'') );
 		}
 	});
 
