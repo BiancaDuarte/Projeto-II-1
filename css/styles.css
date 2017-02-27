@@ -5,40 +5,56 @@ html {
 	padding: 0;
 	font-family: 'Signika Negative', sans-serif;
 }
+
 #aviso{
 	display: none;
 }
+
 #inativos, #ativos{
 	cursor: pointer;
+}
+
+#confirmaapagar{
+	background-color: red;
+	border-color: red;
 }
 
 .alert {
 	margin-top: 20px;
 	display: none;
 }
+
 img{
 	max-width: 150px;
     max-height:80px;
     float:left;
     margin-left: 50px;
+    margin-right: 500px;
 }
 
 #informe{
 	background-color: #b3d9ff;
 
 }
+
 .table{
 	box-shadow: 10px 10px 5px grey;
 }
-.navbar{
-	background-color:  #002e4d;
-	border: #00264d;
-}
+
 .nav{
 	margin-left: 6%;
 }
+
 #titulo{
 	color: #00264d;
+}
+#mais{
+	background-color: #b3d9ff;
+}
+#cancelar{
+	background-color: white;
+	border-color: black;
+	color: black;
 }
 
 a:link, a:visited, a:active {
@@ -47,13 +63,13 @@ a:link, a:visited, a:active {
 	margin-top: 20px;
 	font-size: 150%;
 	color: black;
-	}
+}
 
 a:hover {
 	text-decoration: underline;  
 	color:#000; 
 	font-size:200%; 
-	}
+}
 
 div.header {
 	border-style: ridge;
@@ -62,6 +78,7 @@ div.header {
     padding: 10px;
     text-align: center; 
 }
+
 p{
 	float;
 }
@@ -71,6 +88,7 @@ h2, p, h1 {
 	font-family: 'Signika Negative', sans-serif;
 
 }
+
 .lista {
 	border-style: solid;
     border-width: 5px;
