@@ -59,7 +59,7 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<label for="Estoque">Quantidade em estoque:</label>
-												<input type="text" class="form-control" id="estoque" placeholder="Estoque">
+												<input type="text" class="form-control" id="estoque" placeholder="Estoque" onpaste="return false" ondrop="return false">
 											</div>
 									</div>
 									<div class="modal-footer">
@@ -117,6 +117,11 @@
 			<div class="col-md-12">
 				<div class="alert alert-success" id="aviso" role="alert">
 					<strong id="textoaviso"></strong>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="alert alert-danger" id="alerta2" role="alert">
+					<strong id="textoalerta2"></strong>
 				</div>
 			</div>
 		</div>
