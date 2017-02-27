@@ -113,7 +113,7 @@ function ajax(tipo, url, msg, dados){//requisição ajax, conforme dados recebid
 function avisosdois(msg){ //avisos de intereção com o usuário
 	$('#alerta2').fadeIn('fast', function(){
 	});
-	$( "#textoalerta" ).html("<h1>"+msg+"</h1>");
+	$( "#textoalerta2" ).html("<h1>"+msg+"</h1>");
 	$('#alerta2').fadeOut(2500, function(){
 	});
 

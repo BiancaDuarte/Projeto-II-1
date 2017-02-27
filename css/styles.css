@@ -28,8 +28,7 @@ img{
 	max-width: 150px;
     max-height:80px;
     float:left;
-    margin-left: 50px;
-    margin-right: 500px;
+
 }
 
 #informe{
@@ -83,9 +82,6 @@ div.header {
     text-align: center; 
 }
 
-p{
-	float;
-}
 
 h2, p, h1 {
 	text-align: center;
