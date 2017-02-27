@@ -306,7 +306,18 @@ function actions(){
 	        this.value = this.value.replace(/[^0-9]/g, '');
 	    }
 	});
+	$('#estoque').blur(function () { //substitui tudo que não é numero por espaço
+	    if (this.value.match(/[0-9]/)) {
+	        this.value = this.value.replace(/[^0-9]/g, '');
+	    }
+	});
 	$("#nome").keyup(function(){
+		var regex = /[^a-zA-Z- çãõáéíóúàèÌòùâêîôûäëïüöÃÕÁÉÍÓÚÀÈÌÒÙÄÜÏÖËÂÊÎÔÛ]/g; 
+		if($(this).val().match(regex)){
+			$(this).val( $(this).val().replace(regex,'') );
+		}
+	});
+	$("#nome").blur(function(){
 		var regex = /[^a-zA-Z- çãõáéíóúàèÌòùâêîôûäëïüöÃÕÁÉÍÓÚÀÈÌÒÙÄÜÏÖËÂÊÎÔÛ]/g; 
 		if($(this).val().match(regex)){
 			$(this).val( $(this).val().replace(regex,'') );
