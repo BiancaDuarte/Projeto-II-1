@@ -82,13 +82,18 @@ function leituraDados(estado){
 }
 
 function mudartitulo(estado) {//Função que muda o título da página
-	if(estado=="A"){
-		$('#titulo').html("Lista de Itens Ativos em Estoque:");
-	}else if(estado=="I"){
-		$('#titulo').html("Lista de Itens Inativos em Estoque:");
-	
-	}else{
-		$('#titulo').html("Lista de Produtos em Estoque:");
+	switch(estado){
+		case "A":
+			$('#titulo').html("Lista de Itens Ativos em Estoque:");
+			break;
+
+		case "I":
+			$('#titulo').html("Lista de Itens Inativos em Estoque:");
+			break;
+
+		case 0:
+			$('#titulo').html("Lista de Produtos em Estoque:");
+			break;
 	}
 }
 
@@ -221,7 +226,6 @@ function salvarnovosdados(metodo, btn){ //salva novos dados e envia para requisi
 
 function procuraigual(){ //função que procura produto igual
 	var teste
-
 	$.get(db, function(data) {
 		for(var i=0; i<data.length; i++){
 			if($("#nome").val().toLowerCase()==data[i].nome.toLowerCase()) {
@@ -267,6 +271,17 @@ function preencher(nome,valor,status,estoque){ //preenche modal na função edit
 	$("#estoque").val(estoque);
 }
 
+function EstoqueNumeros(e){ //BLOQUEIA LETRAS NO ESTOQUE
+	if ((e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) || e.which ==32 )   {
+		 return false;
+	}
+}
+
+function NomeLetras(e){ //BLOQUEIA NUMEROS NO NOME
+	if ((e.which != 8 && e.which != 0 && (e.which < 65 || e.which > 126)) || (e.which>=123 && e.which<=125) || e.which==20 ) {
+		 return false;
+	}
+}
 
 function actions(){
 	$('#A').click(function(){
@@ -307,28 +322,17 @@ function actions(){
 		confereform("PUT",this);
 	});
 
-	$('#estoque').keyup(function () { //substitui tudo que não é numero por espaço
-	    if (this.value.match(/[0123456789]/)) {
-	        this.value = this.value.replace(/[^0-9]/g, '');
-	    }
-	});
-	$('#estoque').blur(function () { //substitui tudo que não é numero por espaço
-	    if (this.value.match(/[0123456789]/)) {
-	        this.value = this.value.replace(/[^0-9]/g, '');
-	    }
-	});
-	$("#nome").keyup(function(){
-		var regex = /[^a-zA-Z- çãõáéíóúàèÌòùâêîôûäëïüöÃÕÁÉÍÓÚÀÈÌÒÙÄÜÏÖËÂÊÎÔÛ]/g; 
-		if($(this).val().match(regex)){
-			$(this).val( $(this).val().replace(regex,'') );
-		}
-	});
-	$("#nome").blur(function(){
-		var regex = /[^a-zA-Z- çãõáéíóúàèÌòùâêîôûäëïüöÃÕÁÉÍÓÚÀÈÌÒÙÄÜÏÖËÂÊÎÔÛ]/g; 
-		if($(this).val().match(regex)){
-			$(this).val( $(this).val().replace(regex,'') );
-		}
-	});
+	$('#estoque').keypress(EstoqueNumeros);
+
+	$('#nome').keypress(NomeLetras);
+
+	$("#nome, #estoque, #valor").bind('paste', function(e) {
+        e.preventDefault();
+    });
+
+	$("#nome, #estoque, #valor").bind('drop', function(e) {
+        e.preventDefault();
+    });
 }
 
 $(document).ready(function(){
